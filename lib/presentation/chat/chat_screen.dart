@@ -29,8 +29,6 @@ class ChatScreen extends StatelessWidget {
 }
 
 class _ChatView extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
     final chatProvider = context.watch<ChatProvider>();
@@ -44,13 +42,11 @@ class _ChatView extends StatelessWidget {
               child: ListView.builder(
                 controller: chatProvider.chatScrollController,
                 itemCount: chatProvider.messageList.length,
-                
-
                 itemBuilder: (context, index) {
                   //instancia del message que sabra de quien es el mensaje
                   final message = chatProvider.messageList[index];
                   return (message.fromWho == FromWho.hers)
-                  ? const HerMessageBubble()
+                  ?  HerMessageBubble(message: message)
                   : MyMessageBubble(message: message);
                 }
               )

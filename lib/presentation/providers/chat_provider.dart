@@ -36,6 +36,9 @@ Future<void> herReply()  async {
 }
 
   moveScrollToBottom (){
-    chatScrollController.animateTo(chatScrollController.position.maxScrollExtent, duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
+    chatScrollController.animateTo(
+      chatScrollController.position.maxScrollExtent, 
+      duration: const Duration(milliseconds: 300), 
+      curve: Curves.easeOut);
   }
 }
