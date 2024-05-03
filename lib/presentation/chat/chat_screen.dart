@@ -13,14 +13,15 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 112, 59, 236),
         leading: const Padding(
           padding: EdgeInsets.all(3.0),
           child: CircleAvatar(
             backgroundImage: NetworkImage(
-                'https://i.pinimg.com/originals/97/c1/ab/97c1ab0ebd5df3440eb8843d86860009.jpg'),
+                'https://th.bing.com/th/id/OIP.UykXNAQCP-Cyj8_c-2rZowHaHa?rs=1&pid=ImgDetMain'),
           ),
         ),
-        title: const Text('si'),
+        title: const Text('Guillermo Medina'),
         centerTitle: false,
       ),
       body: _ChatView(),
@@ -32,31 +33,33 @@ class _ChatView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final chatProvider = context.watch<ChatProvider>();
-        print('cantidad de mensajes $chatProvider.messageList.lenght');
+    //Agregamos para impirmir en consola
+    print('cantidad de mensajes ${chatProvider.messageList.length}');
     return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                controller: chatProvider.chatScrollController,
-                itemCount: chatProvider.messageList.length,
-                itemBuilder: (context, index) {
-                  //instancia del message que sabra de quien es el mensaje
-                  final message = chatProvider.messageList[index];
-                  return (message.fromWho == FromWho.hers)
-                  ?  HerMessageBubble(message: message)
-                  : MyMessageBubble(message: message);
-                }
-              )
-            ),
+        child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              children: [
+                Expanded(
+                    child: ListView.builder(
+                        //controller es un control de usuario
+                        controller: chatProvider.chatScrollController,
+                        //se pone la longitud de la lista que se encuentra en chatprovider
+                        itemCount: chatProvider.messageList
+                            .length, //cuantos elementos tiene la lista
+                        itemBuilder: (context, index) {
+                          //el constructor que va a tener  "como"
+                          //instancia del message que sabra de quien es el mensaje
+                          final message = chatProvider.messageList[index];
+                          return (message.fromWho == FromWho.hers)
+                              ? HerMessageBubble(
+                                  message: message,
+                                )
+                              : MyMessageBubble(message: message);
+                        })),
                 //Caja de Texto de mensaje
-               MessageFieldBox(onValue: chatProvider.sendMessage),
-          ],
-        ),
-      ),
-    );
+                MessageFieldBox(onValue: chatProvider.sendMessage),
+              ],
+            )));
   }
 }
-

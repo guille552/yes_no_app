@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yes_no_app/domain/entities/message.dart';
+import 'package:intl/intl.dart';
 
 class HerMessageBubble extends StatelessWidget {
   final Message message;
@@ -16,18 +17,21 @@ class HerMessageBubble extends StatelessWidget {
           decoration: BoxDecoration(
               color: colors.secondary, borderRadius: BorderRadius.circular(20)),
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Text(
               message.text,
-              style: TextStyle(color: Colors.orange),
+              style: const TextStyle(color: Colors.white),
             ),
           ),
         ),
         const SizedBox(height: 5),
-        _ImageBubble(imageUrl: message.imageUrl!),
+        _ImageBubble(message.imageUrl!),
         const SizedBox(height: 10),
-
-        
+        Text(
+          DateFormat('HH:mm')
+              .format(message.sentTime),
+          style: TextStyle(fontSize: 12, color: Colors.grey),
+        ),
       ],
     );
   }
@@ -36,7 +40,8 @@ class HerMessageBubble extends StatelessWidget {
 class _ImageBubble extends StatelessWidget {
   final String imageUrl;
 
-  const _ImageBubble({super.key, required this.imageUrl});
+  const _ImageBubble(this.imageUrl);
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -54,7 +59,7 @@ class _ImageBubble extends StatelessWidget {
               width: size.width * 0.7,
               height: 150,
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: const Text('hola esta enviando una imagen'),
+              child: const Text('su amigo personal esta enviando una imagen'),
             );
           },
         ));
